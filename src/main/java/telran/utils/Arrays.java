@@ -30,7 +30,9 @@ public class Arrays
     public static int[] addItem(int[] source_array, int new_item) {
         int[] res = java.util.Arrays.copyOf(source_array, source_array.length + 1);
         res[source_array.length] = new_item;
-
+        for (int i = 0; i < res.length; i++) {
+            System.out.print(res[i] + " ");
+        }
         return res;
     }
 
@@ -45,14 +47,10 @@ public class Arrays
     public static int[] insertItem(int[] source_array, int new_item, int key_new_item)
     {
         int[] res = new int[source_array.length + 1];
-        if (key_new_item >= source_array.length) {
-            System.arraycopy(source_array, 0, res, 0, source_array.length);
-            res[source_array.length] = new_item;
-        } else {
-            System.arraycopy(source_array, 0, res, 0, key_new_item);
-            res[key_new_item] = new_item;
-            System.arraycopy(source_array, key_new_item, res, key_new_item + 1, source_array.length - key_new_item);
-        }
+
+        System.arraycopy(source_array, 0, res, 0, key_new_item);
+        res[key_new_item] = new_item;
+        System.arraycopy(source_array, key_new_item, res, key_new_item + 1, source_array.length - key_new_item);
 
         return res;
     }
@@ -67,12 +65,9 @@ public class Arrays
     public static int[] removeItem(int[] source_array, int key_removed_item)
     {
         int[] res = new int[source_array.length-1];
-        if (key_removed_item >= source_array.length) {
-            System.arraycopy(source_array, 0, res, 0, source_array.length);
-        } else {
-            System.arraycopy(source_array, 0, res, 0, key_removed_item);
-            System.arraycopy(source_array, key_removed_item + 1, res, key_removed_item, source_array.length - key_removed_item - 1);
-        }
+
+        System.arraycopy(source_array, 0, res, 0, key_removed_item);
+        System.arraycopy(source_array, key_removed_item + 1, res, key_removed_item, source_array.length - key_removed_item - 1);
 
         return res;
     }

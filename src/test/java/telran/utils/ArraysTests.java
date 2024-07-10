@@ -36,6 +36,12 @@ public class ArraysTests
         int[] expected_array = {10, 7, 12, new_value, -5, 3, -13, 25};
 
         assertArrayEquals(insertItem(numbers, new_value, key_new_value), expected_array);
+
+        Exception exception = assertThrows(ArrayIndexOutOfBoundsException.class, () -> insertItem(numbers, new_value, 50));
+        assertEquals("arraycopy: last source index 50 out of bounds for int[" + numbers.length + "]", exception.getMessage());
+
+        exception = assertThrows(ArrayIndexOutOfBoundsException.class, () -> insertItem(numbers, new_value, -50));
+        assertEquals("arraycopy: length -50 is negative", exception.getMessage());
     }
 
     @Test
@@ -45,5 +51,11 @@ public class ArraysTests
         int[] expected_array = {10, 7, 12, -5, -13, 25};
 
         assertArrayEquals(removeItem(numbers, key_removed), expected_array);
+
+        Exception exception = assertThrows(ArrayIndexOutOfBoundsException.class, () -> removeItem(numbers, 50));
+        assertEquals("arraycopy: last source index 50 out of bounds for int[" + numbers.length + "]", exception.getMessage());
+
+        exception = assertThrows(ArrayIndexOutOfBoundsException.class, () -> removeItem(numbers, -50));
+        assertEquals("arraycopy: length -50 is negative", exception.getMessage());
     }
 }
