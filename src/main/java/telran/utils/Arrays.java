@@ -30,9 +30,7 @@ public class Arrays
     public static int[] addItem(int[] source_array, int new_item) {
         int[] res = java.util.Arrays.copyOf(source_array, source_array.length + 1);
         res[source_array.length] = new_item;
-        for (int i = 0; i < res.length; i++) {
-            System.out.print(res[i] + " ");
-        }
+
         return res;
     }
 
