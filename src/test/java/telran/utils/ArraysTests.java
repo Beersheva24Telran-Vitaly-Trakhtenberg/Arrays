@@ -11,7 +11,7 @@ public class ArraysTests
     int[] numbers = {10, 7, 12, -5, 3, -13, 25};
 
     @Test
-    void searchTest()
+    void searchFirstEntryTest()
     {
         assertEquals(0, searchFirstEntry(numbers, 10));   // first element
         assertEquals(6, searchFirstEntry(numbers, 25));   // last element
