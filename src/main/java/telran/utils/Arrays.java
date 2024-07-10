@@ -1,15 +1,13 @@
 package telran.utils;
 
-import java.io.OutputStream;
-
 public class Arrays
 {
     // JAVA Array is a reference to the first element of the array
     /**
      * Method searches the index of the first entry of given value to existed array
      *
-     * @param source_array
-     * @param value
+     * @param source_array existed array
+     * @param value searched value
      * @return reference to a new array containing @source_array with added @new_item
      */
     public static int searchFirstEntry(int[] source_array, int value)
@@ -25,8 +23,8 @@ public class Arrays
     /**
      * Method adds int Item to the end of existed array.
      *
-     * @param source_array
-     * @param new_item
+     * @param source_array existed array
+     * @param new_item value to add
      * @return reference to a new array containing @source_array with added @new_item
      */
     public static int[] addItem(int[] source_array, int new_item) {
@@ -39,8 +37,9 @@ public class Arrays
     /**
      * Method inserts int Item into the given position of existed array.
      *
-     * @param source_array
-     * @param new_item
+     * @param source_array  existed array
+     * @param new_item value to insert
+     * @param key_new_item index (placement) where to insert
      * @return reference to a new array
      */
     public static int[] insertItem(int[] source_array, int new_item, int key_new_item)
@@ -61,8 +60,8 @@ public class Arrays
     /**
      * Method removes item of existed array at the given position
      *
-     * @param source_array
-     * @param key_removed_item
+     * @param source_array existed array
+     * @param key_removed_item index of removed item
      * @return reference to a new array
      */
     public static int[] removeItem(int[] source_array, int key_removed_item)
