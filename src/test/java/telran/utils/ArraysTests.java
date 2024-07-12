@@ -124,4 +124,28 @@ public class ArraysTests
         assertEquals(-1, binarySearch_ver2(test_array, searched_nonpresented_value));
         assertEquals(-1, binarySearch_ver2(test_unsorted_array, searched_nonpresented_value));
     }
+
+    @Test
+    void insertSortedTest()
+    {
+        int[] source_array = {2, 5, 7, 10, 12, 13, 14, 21, 26};
+        int[] source_unsorted_array = {-15, 12, 0, -3, 17, 23};
+        int[] test_values = {-1, 8, 30};
+        int[] expected_array_0 = {-1, 2, 5, 7, 10, 12, 13, 14, 21, 26};
+        int[] expected_array_1 = {2, 5, 7, 8, 10, 12, 13, 14, 21, 26};
+        int[] expected_array_2 = {2, 5, 7, 10, 12, 13, 14, 21, 26, 30};
+
+        int[] result_array = insertSorted(source_array, test_values[0]);
+        assertArrayEquals(expected_array_0, result_array);
+
+        result_array = insertSorted(source_array, test_values[1]);
+        assertArrayEquals(expected_array_1, result_array);
+
+        result_array = insertSorted(source_array, test_values[2]);
+        assertArrayEquals(expected_array_2, result_array);
+
+        Exception exception = assertThrows(ArrayIndexOutOfBoundsException.class, () -> insertSorted(source_unsorted_array, test_values[1]));
+        assertEquals("arraycopy: length -1 is negative", exception.getMessage());
+
+    }
 }
