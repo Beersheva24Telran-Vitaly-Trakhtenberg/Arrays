@@ -3,6 +3,14 @@ package telran.utils;
 public class Arrays
 {
     // JAVA Array is a reference to the first element of the array
+
+    public enum SortStatusChecking {
+        ASCENDING_UNIQUE,
+        DESCENDING_UNIQUE,
+        ASCENDING_NONE_UNIQUE,
+        DESCENDING_NONE_UNIQUE,
+    }
+
     /**
      * Method searches the index of the first entry of given value to existed array
      *
@@ -69,4 +77,139 @@ public class Arrays
 
         return res;
     }
+
+    public static void pushMaxToEnd(int[] source_array)
+    {
+        for (int i = 1; i < source_array.length; i++) {
+            if (source_array[i] < source_array[i - 1]) {
+                swap(source_array, i, i - 1);
+            }
+        }
+    }
+
+    public static void sortBubbleMinToMax(int[] source_array)
+    {
+        for (int j = 1; j < source_array.length; j++) {
+            pushMaxToEnd(source_array);
+        }
+    }
+
+    /**
+     *
+     * @param source_sorted_array - sorted array when search will be appeared
+     * @param searched_value - value, which index will be searched
+     * @return - index of the searched value is success; -1 if any fails (not found, array wasn't sorted etc.);
+     */
+    public static int binarySearch_ver1(int[] source_sorted_array, int searched_value)
+    {
+        int res = -1;
+        if (isArraySorted(source_sorted_array, SortStatusChecking.ASCENDING_UNIQUE) && searched_value >= source_sorted_array[0] && searched_value <= source_sorted_array[source_sorted_array.length - 1]) {
+            int middle = source_sorted_array.length / 2;
+            int left = 0;
+            if (searched_value == source_sorted_array[0]) {
+                res = 0;
+            } else if (searched_value == source_sorted_array[source_sorted_array.length-1]) {
+                res = source_sorted_array.length-1;
+            }
+            while (res == -1 && middle != 0) {
+                if (searched_value != source_sorted_array[left + middle]) {
+                    if (searched_value < source_sorted_array[left + middle]) {
+                        middle = middle / 2;
+                    } else {
+                        left = left + middle;
+                        middle = (source_sorted_array.length - 1 - left) / 2;
+                    }
+                } else {
+                    res = left + middle;
+                }
+            }
+        }
+
+        return res;
+    }
+    /**
+     *
+     * @param source_sorted_array - sorted array when search will be appeared
+     * @param searched_value - value, which index will be searched
+     * @return - index of the searched value is success; -1 if any fails (not found, array wasn't sorted etc.);
+     */
+    public static int binarySearch_ver2(int[] source_sorted_array, int searched_value)
+    {
+        int res = -1;
+
+        if (isArraySorted(source_sorted_array, SortStatusChecking.ASCENDING_UNIQUE)) {
+            int left = 0;
+            int right = source_sorted_array.length - 1;
+
+            while (left <= right) {
+                int middle = left + (right - left) / 2;
+
+                if (source_sorted_array[middle] == searched_value) {
+                    res = middle;
+                    break;
+                }
+
+                if (source_sorted_array[middle] < searched_value) {
+                    left = middle + 1;
+                } else {
+                    right = middle - 1;
+                }
+            }
+        }
+
+        return res;
+    }
+
+    public static int[] insertSorted(int[] source_sorted_array, int new_value)
+    {
+        //TODO : HW #6
+
+        return null;
+    }
+
+    public static boolean isOneSwap(int[] source_array)
+    {
+        //TODO : HW #6
+
+        return false;
+    }
+
+    private static void swap(int[] source_array, int index1, int index2)
+    {
+        int tmp = source_array[index1];
+        source_array[index1] = source_array[index2];
+        source_array[index2] = tmp;
+    }
+
+    public static boolean isArraySorted(int[] source_array, SortStatusChecking order)
+    {
+        boolean res = true;
+
+        for (int i = 1; res && i < source_array.length; i++) {
+            switch (order) {
+                case SortStatusChecking.ASCENDING_UNIQUE -> {
+                    if (source_array[i-1] >= source_array[i]) {
+                        res = false;
+                    }
+                }
+                case SortStatusChecking.DESCENDING_UNIQUE -> {
+                    if (source_array[i-1] <= source_array[i]) {
+                        res = false;
+                    }
+                }
+                case SortStatusChecking.ASCENDING_NONE_UNIQUE -> {
+                    if (source_array[i-1] > source_array[i]) {
+                        res = false;
+                    }
+                }
+                case SortStatusChecking.DESCENDING_NONE_UNIQUE -> {
+                    if (source_array[i-1] < source_array[i]) {
+                        res = false;
+                    }
+                }
+            }
+        }
+        return res;
+    }
+
 }
