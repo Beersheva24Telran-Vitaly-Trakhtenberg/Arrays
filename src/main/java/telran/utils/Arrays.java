@@ -1,5 +1,7 @@
 package telran.utils;
 
+import java.util.MissingFormatArgumentException;
+
 public class Arrays
 {
     // JAVA Array is a reference to the first element of the array
@@ -123,6 +125,12 @@ public class Arrays
                     res = left + middle;
                 }
             }
+        } else {
+            throw new MissingFormatArgumentException("Given array wasn't sorted");
+        }
+
+        if (res == -1) {
+            res = -1 * indexInsertToSorted(source_sorted_array, searched_value) - 1;    // (-(insertion point) - 1)
         }
 
         return res;
@@ -155,6 +163,12 @@ public class Arrays
                     right = middle - 1;
                 }
             }
+        } else {
+            throw new MissingFormatArgumentException("Given array wasn't sorted");
+        }
+
+        if (res == -1) {
+            res = -1 * indexInsertToSorted(source_sorted_array, searched_value) - 1;    // (-(insertion point) - 1)
         }
 
         return res;
@@ -162,32 +176,7 @@ public class Arrays
 
     public static int[] insertSorted(int[] source_sorted_array, int new_value)
     {
-        int new_value_index = -1;
-
-        if (isArraySorted(source_sorted_array, SortStatusChecking.ASCENDING_UNIQUE)) {
-            if (new_value < source_sorted_array[0]) {
-                new_value_index = 0;
-            }
-            if (new_value > source_sorted_array[source_sorted_array.length - 1]) {
-                new_value_index = source_sorted_array.length;
-            }
-            int left = 0;
-            int right = source_sorted_array.length - 1;
-
-            while (left <= right && new_value_index == -1) {
-                int middle = left + (right - left) / 2;
-                if (source_sorted_array[middle-1] <= new_value && source_sorted_array[middle] >= new_value ) {
-                    new_value_index = middle;
-                    break;
-                }
-
-                if (source_sorted_array[middle] < new_value) {
-                    left = middle + 1;
-                } else {
-                    right = middle - 1;
-                }
-            }
-        }
+        int new_value_index = indexInsertToSorted(source_sorted_array, new_value);
 
         int[] res = insertItem(source_sorted_array, new_value, new_value_index);
 
@@ -199,13 +188,6 @@ public class Arrays
         //TODO : HW #6
 
         return false;
-    }
-
-    private static void swap(int[] source_array, int index1, int index2)
-    {
-        int tmp = source_array[index1];
-        source_array[index1] = source_array[index2];
-        source_array[index2] = tmp;
     }
 
     public static boolean isArraySorted(int[] source_array, SortStatusChecking order)
@@ -239,4 +221,41 @@ public class Arrays
         return res;
     }
 
+    private static void swap(int[] source_array, int index1, int index2)
+    {
+        int tmp = source_array[index1];
+        source_array[index1] = source_array[index2];
+        source_array[index2] = tmp;
+    }
+
+    private static int indexInsertToSorted(int[] source_sorted_array, int new_value)
+    {
+        int new_value_index = -1;
+
+        if (isArraySorted(source_sorted_array, SortStatusChecking.ASCENDING_UNIQUE)) {
+            if (new_value < source_sorted_array[0]) {
+                new_value_index = 0;
+            }
+            if (new_value > source_sorted_array[source_sorted_array.length - 1]) {
+                new_value_index = source_sorted_array.length;
+            }
+            int left = 0;
+            int right = source_sorted_array.length - 1;
+
+            while (left <= right && new_value_index == -1) {
+                int middle = left + (right - left) / 2;
+                if (source_sorted_array[middle-1] <= new_value && source_sorted_array[middle] >= new_value ) {
+                    new_value_index = middle;
+                    break;
+                }
+
+                if (source_sorted_array[middle] < new_value) {
+                    left = middle + 1;
+                } else {
+                    right = middle - 1;
+                }
+            }
+        }
+        return new_value_index;
+    }
 }

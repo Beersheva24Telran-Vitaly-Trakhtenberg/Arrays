@@ -2,6 +2,8 @@ package telran.utils;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.MissingFormatArgumentException;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 import static telran.utils.Arrays.*;
@@ -114,15 +116,17 @@ public class ArraysTests
         assertEquals(2, binarySearch_ver1(test_array, searched_presented_value_left));
         assertEquals(0, binarySearch_ver1(test_array, searched_presented_value_start));
         assertEquals(8, binarySearch_ver1(test_array, searched_presented_value_finish));
-        assertEquals(-1, binarySearch_ver1(test_array, searched_nonpresented_value));
-        assertEquals(-1, binarySearch_ver1(test_unsorted_array, searched_nonpresented_value));
+        assertEquals(-3, binarySearch_ver1(test_array, searched_nonpresented_value));
+        Exception exception = assertThrows(MissingFormatArgumentException.class, () -> binarySearch_ver1(test_unsorted_array, searched_nonpresented_value));
+        assertEquals("Format specifier 'Given array wasn't sorted'", exception.getMessage());
 
         assertEquals(7, binarySearch_ver2(test_array, searched_presented_value_right));
         assertEquals(2, binarySearch_ver2(test_array, searched_presented_value_left));
         assertEquals(0, binarySearch_ver2(test_array, searched_presented_value_start));
         assertEquals(8, binarySearch_ver2(test_array, searched_presented_value_finish));
-        assertEquals(-1, binarySearch_ver2(test_array, searched_nonpresented_value));
-        assertEquals(-1, binarySearch_ver2(test_unsorted_array, searched_nonpresented_value));
+        assertEquals(-3, binarySearch_ver2(test_array, searched_nonpresented_value));
+        exception = assertThrows(MissingFormatArgumentException.class, () -> binarySearch_ver2(test_unsorted_array, searched_nonpresented_value));
+        assertEquals("Format specifier 'Given array wasn't sorted'", exception.getMessage());
     }
 
     @Test
