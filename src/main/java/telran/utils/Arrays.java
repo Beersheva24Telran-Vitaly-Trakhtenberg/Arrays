@@ -174,6 +174,12 @@ public class Arrays
         return res;
     }
 
+    /**
+     *
+     * @param source_sorted_array
+     * @param new_value
+     * @return index of position @new_value to keep array sorted
+     */
     public static int[] insertSorted(int[] source_sorted_array, int new_value)
     {
         int new_value_index = indexInsertToSorted(source_sorted_array, new_value);
@@ -181,6 +187,11 @@ public class Arrays
         return insertItem(source_sorted_array, new_value, new_value_index);
     }
 
+    /**
+     *
+     * @param source_array
+     * @return true if a given array has exactly one swap to get sort
+     */
     public static boolean isOneSwap(int[] source_array)
     {
         boolean res = !isArraySorted(source_array, SortStatusChecking.ASCENDING_UNIQUE) &&
@@ -231,6 +242,18 @@ public class Arrays
         return res;
     }
 
+    /**
+     * Method checks if given array sorted.
+     * Checking could be performed for some variants of sort:
+     * - Ascending unique: 1, 2, 3, 4, 5
+     * - Ascending non-unique: 1, 2, 2, 4, 5
+     * - Descending unique: 5, 4, 3, 2, 1
+     * - Descending non-unique: 5, 4, 4, 2, 1
+     *
+     * @param source_array
+     * @param order
+     * @return
+     */
     public static boolean isArraySorted(int[] source_array, SortStatusChecking order)
     {
         boolean res = true;
@@ -262,6 +285,12 @@ public class Arrays
         return res;
     }
 
+    /**
+     *
+     * @param source_array
+     * @param index1
+     * @param index2
+     */
     private static void swap(int[] source_array, int index1, int index2)
     {
         int tmp = source_array[index1];
@@ -269,6 +298,12 @@ public class Arrays
         source_array[index2] = tmp;
     }
 
+    /**
+     *
+     * @param source_sorted_array
+     * @param new_value
+     * @return
+     */
     private static int indexInsertToSorted(int[] source_sorted_array, int new_value)
     {
         int new_value_index = -1;
