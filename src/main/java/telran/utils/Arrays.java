@@ -178,26 +178,21 @@ public class Arrays
     {
         int new_value_index = indexInsertToSorted(source_sorted_array, new_value);
 
-        int[] res = insertItem(source_sorted_array, new_value, new_value_index);
-
-        return res;
+        return insertItem(source_sorted_array, new_value, new_value_index);
     }
 
     public static boolean isOneSwap(int[] source_array)
     {
-        boolean res = true;
-
-        if (isArraySorted(source_array, SortStatusChecking.ASCENDING_UNIQUE) || isArraySorted(source_array, SortStatusChecking.DESCENDING_UNIQUE)) {
-            res = false;
-        }
+        boolean res = !isArraySorted(source_array, SortStatusChecking.ASCENDING_UNIQUE) &&
+                !isArraySorted(source_array, SortStatusChecking.DESCENDING_UNIQUE);
 
         int position1 = -1;
         int position2 = -1;
-        int i = 0;
+        int i;
         while (res) {
             for (i = 0; i < source_array.length - 1; i++) {
                 if (source_array[i]>source_array[i+1]) {
-                    if (position1 == -1 && position2 == -1) {
+                    if (position1 == -1) {
                         position1 = i;
                         position2 = i+1;
                     } else if (source_array[i + 1] < source_array[position1 + 1]) {
