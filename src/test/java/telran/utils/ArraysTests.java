@@ -152,4 +152,20 @@ public class ArraysTests
         assertEquals("arraycopy: length -1 is negative", exception.getMessage());
 
     }
+
+    @Test
+    void isOneSwapTest()
+    {
+        int[] test_array_1 = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 12, 11, 13, 14, 15, 16, 17, 18, 19, 20};
+        int[] test_array_2 = {1, 2, 3, 4, 5, 6, 7, 8, 9, 20, 11, 12, 13, 14, 15, 16, 17, 18, 19, 10};
+        int[] test_array_sorted = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20};
+        int[] test_array_unsorted1 = {3, 2, 1, 4, 5, 6, 12, 8, 9, 10, 11, 7, 13, 14, 15, 16, 17, 18, 19, 20};
+        int[] test_array_unsorted2 = {1, 2, 3, 4, 5, 6, 7, 8, 9, 20, 11, 12, 14, 13, 15, 16, 17, 18, 19, 10};
+
+        assertTrue(isOneSwap(test_array_1));
+        assertTrue(isOneSwap(test_array_2));
+        assertFalse(isOneSwap(test_array_sorted));
+        assertFalse(isOneSwap(test_array_unsorted1));
+        assertFalse(isOneSwap(test_array_unsorted2));
+    }
 }

@@ -185,9 +185,55 @@ public class Arrays
 
     public static boolean isOneSwap(int[] source_array)
     {
-        //TODO : HW #6
+        boolean res = true;
 
-        return false;
+        if (isArraySorted(source_array, SortStatusChecking.ASCENDING_UNIQUE) || isArraySorted(source_array, SortStatusChecking.DESCENDING_UNIQUE)) {
+            res = false;
+        }
+
+        int position1 = -1;
+        int position2 = -1;
+        int i = 0;
+        while (res) {
+            for (i = 0; i < source_array.length - 1; i++) {
+                if (source_array[i]>source_array[i+1]) {
+                    if (position1 == -1 && position2 == -1) {
+                        position1 = i;
+                        position2 = i+1;
+                    } else if (source_array[i + 1] < source_array[position1 + 1]) {
+                        position2 = i + 1;
+                    } else {
+                        res = false;
+                        break;
+                    }
+                }
+            }
+
+            if (res && i == source_array.length - 1) {
+                if (position1 != -1 && position2 != -1 && source_array[position2] < source_array[position1]) {
+                    if (position1 == 0) {
+                        if (position2 == source_array.length - 1) {
+                            res = source_array[position1] > source_array[position2 - 1];
+                        } else {
+                            res = source_array[position1] > source_array[position2 - 1] &&
+                                    source_array[position1] < source_array[position2 + 1];
+                        }
+                    } else {
+                        if (position2 == source_array.length - 1) {
+                            res = source_array[position1] > source_array[position2 - 1] &&
+                                    source_array[position2] < source_array[position1 + 1];
+                        } else {
+                            res = source_array[position1] < source_array[position2 + 1] &&
+                                    source_array[position2] > source_array[position1 - 1] &&
+                                    source_array[position2] <= source_array[position1];
+                        }
+                    }
+                }
+                break;
+            }
+        }
+
+        return res;
     }
 
     public static boolean isArraySorted(int[] source_array, SortStatusChecking order)
