@@ -102,73 +102,30 @@ public class Arrays
      * @param searched_value - value, which index will be searched
      * @return - index of the searched value is success; -1 if any fails (not found, array wasn't sorted etc.);
      */
-    public static int binarySearch_ver1(int[] source_sorted_array, int searched_value)
-    {
-        int res = -1;
-        if (isArraySorted(source_sorted_array, SortStatusChecking.ASCENDING_UNIQUE) && searched_value >= source_sorted_array[0] && searched_value <= source_sorted_array[source_sorted_array.length - 1]) {
-            int middle = source_sorted_array.length / 2;
-            int left = 0;
-            if (searched_value == source_sorted_array[0]) {
-                res = 0;
-            } else if (searched_value == source_sorted_array[source_sorted_array.length-1]) {
-                res = source_sorted_array.length-1;
-            }
-            while (res == -1 && middle != 0) {
-                if (searched_value != source_sorted_array[left + middle]) {
-                    if (searched_value < source_sorted_array[left + middle]) {
-                        middle = middle / 2;
-                    } else {
-                        left = left + middle;
-                        middle = (source_sorted_array.length - 1 - left) / 2;
-                    }
-                } else {
-                    res = left + middle;
-                }
-            }
-        } else {
-            throw new MissingFormatArgumentException("Given array wasn't sorted");
-        }
-
-        if (res == -1) {
-            res = -1 * indexInsertToSorted(source_sorted_array, searched_value) - 1;    // (-(insertion point) - 1)
-        }
-
-        return res;
-    }
-    /**
-     *
-     * @param source_sorted_array - sorted array when search will be appeared
-     * @param searched_value - value, which index will be searched
-     * @return - index of the searched value is success; -1 if any fails (not found, array wasn't sorted etc.);
-     */
-    public static int binarySearch_ver2(int[] source_sorted_array, int searched_value)
+    public static int binarySearch(int[] source_sorted_array, int searched_value)
     {
         int res = -1;
 
-        if (isArraySorted(source_sorted_array, SortStatusChecking.ASCENDING_UNIQUE)) {
-            int left = 0;
-            int right = source_sorted_array.length - 1;
+        int left = 0;
+        int right = source_sorted_array.length - 1;
 
-            while (left <= right) {
-                int middle = left + (right - left) / 2;
+        while (left <= right) {
+            int middle = left + (right - left) / 2;
 
-                if (source_sorted_array[middle] == searched_value) {
-                    res = middle;
-                    break;
-                }
-
-                if (source_sorted_array[middle] < searched_value) {
-                    left = middle + 1;
-                } else {
-                    right = middle - 1;
-                }
+            if (source_sorted_array[middle] == searched_value) {
+                res = middle;
+                break;
             }
-        } else {
-            throw new MissingFormatArgumentException("Given array wasn't sorted");
+
+            if (source_sorted_array[middle] < searched_value) {
+                left = middle + 1;
+            } else {
+                right = middle - 1;
+            }
         }
 
         if (res == -1) {
-            res = -1 * indexInsertToSorted(source_sorted_array, searched_value) - 1;    // (-(insertion point) - 1)
+            res = -1 * (left < source_sorted_array.length && source_sorted_array[left] < searched_value ? left + 1 : left) - 1;
         }
 
         return res;
@@ -192,7 +149,7 @@ public class Arrays
      * @param source_array
      * @return true if a given array has exactly one swap to get sort
      */
-    public static boolean isOneSwap(int[] source_array)
+    public static boolean isOneSwap_ver1(int[] source_array)
     {
         boolean res = !isArraySorted(source_array, SortStatusChecking.ASCENDING_UNIQUE) &&
                 !isArraySorted(source_array, SortStatusChecking.DESCENDING_UNIQUE);
@@ -205,7 +162,7 @@ public class Arrays
                 if (source_array[i]>source_array[i+1]) {
                     if (position1 == -1) {
                         position1 = i;
-                        position2 = i+1;
+                        position2 = i + 1;
                     } else if (source_array[i + 1] < source_array[position1 + 1]) {
                         position2 = i + 1;
                     } else {
@@ -237,6 +194,39 @@ public class Arrays
                 }
                 break;
             }
+        }
+
+        return res;
+    }
+
+    public static boolean isOneSwap_ver2(int[] source_array) {
+        int n = source_array.length;
+        int first = -1, second = -1;
+        boolean res = true;
+
+        for (int i = 0; i < n - 1; i++) {
+            if (source_array[i] > source_array[i + 1]) {
+                first = i;
+                break;
+            }
+        }
+
+        if (first == -1) {
+            res =  false;
+        }
+
+        for (int i = n - 1; i > 0 && res; i--) {
+            if (source_array[i] < source_array[i - 1]) {
+                second = i;
+                break;
+            }
+        }
+
+        if (first != -1 && second != -1 && res) {
+            swap(source_array, first, second);
+            boolean isSorted = isArraySorted(source_array, SortStatusChecking.ASCENDING_NONE_UNIQUE);
+            swap(source_array, first, second);
+            res = isSorted;
         }
 
         return res;

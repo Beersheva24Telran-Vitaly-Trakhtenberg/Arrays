@@ -112,21 +112,11 @@ public class ArraysTests
         int searched_presented_value_finish = 26;
         int searched_nonpresented_value = 6;
 
-        assertEquals(7, binarySearch_ver1(test_array, searched_presented_value_right));
-        assertEquals(2, binarySearch_ver1(test_array, searched_presented_value_left));
-        assertEquals(0, binarySearch_ver1(test_array, searched_presented_value_start));
-        assertEquals(8, binarySearch_ver1(test_array, searched_presented_value_finish));
-        assertEquals(-3, binarySearch_ver1(test_array, searched_nonpresented_value));
-        Exception exception = assertThrows(MissingFormatArgumentException.class, () -> binarySearch_ver1(test_unsorted_array, searched_nonpresented_value));
-        assertEquals("Format specifier 'Given array wasn't sorted'", exception.getMessage());
-
-        assertEquals(7, binarySearch_ver2(test_array, searched_presented_value_right));
-        assertEquals(2, binarySearch_ver2(test_array, searched_presented_value_left));
-        assertEquals(0, binarySearch_ver2(test_array, searched_presented_value_start));
-        assertEquals(8, binarySearch_ver2(test_array, searched_presented_value_finish));
-        assertEquals(-3, binarySearch_ver2(test_array, searched_nonpresented_value));
-        exception = assertThrows(MissingFormatArgumentException.class, () -> binarySearch_ver2(test_unsorted_array, searched_nonpresented_value));
-        assertEquals("Format specifier 'Given array wasn't sorted'", exception.getMessage());
+        assertEquals(7, binarySearch(test_array, searched_presented_value_right));
+        assertEquals(2, binarySearch(test_array, searched_presented_value_left));
+        assertEquals(0, binarySearch(test_array, searched_presented_value_start));
+        assertEquals(8, binarySearch(test_array, searched_presented_value_finish));
+        assertEquals(-3, binarySearch(test_array, searched_nonpresented_value));
     }
 
     @Test
@@ -154,18 +144,29 @@ public class ArraysTests
     }
 
     @Test
-    void isOneSwapTest()
-    {
+    void isOneSwapTest() {
         int[] test_array_1 = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 12, 11, 13, 14, 15, 16, 17, 18, 19, 20};
         int[] test_array_2 = {1, 2, 3, 4, 5, 6, 7, 8, 9, 20, 11, 12, 13, 14, 15, 16, 17, 18, 19, 10};
+        int[] test_array_3 = {1, 2, 3, 4, 5, 6, 7, 8, 9, 20, 11, 11, 11, 11, 11, 12, 13, 14, 15, 16, 17, 18, 19};
+        int[] test_array_4 = {1, 2, 3, 4, 5, 6, 7, 8, 9, 20, 11, 11, 11, 11, 11, 12, 13, 14, 15, 16, 17, 18, 19, 10};
         int[] test_array_sorted = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20};
         int[] test_array_unsorted1 = {3, 2, 1, 4, 5, 6, 12, 8, 9, 10, 11, 7, 13, 14, 15, 16, 17, 18, 19, 20};
         int[] test_array_unsorted2 = {1, 2, 3, 4, 5, 6, 7, 8, 9, 20, 11, 12, 14, 13, 15, 16, 17, 18, 19, 10};
 
-        assertTrue(isOneSwap(test_array_1));
-        assertTrue(isOneSwap(test_array_2));
-        assertFalse(isOneSwap(test_array_sorted));
-        assertFalse(isOneSwap(test_array_unsorted1));
-        assertFalse(isOneSwap(test_array_unsorted2));
+        assertTrue(isOneSwap_ver1(test_array_1));
+        assertTrue(isOneSwap_ver1(test_array_2));
+        assertFalse(isOneSwap_ver1(test_array_3));
+        assertTrue(isOneSwap_ver1(test_array_4));
+        assertFalse(isOneSwap_ver1(test_array_sorted));
+        assertFalse(isOneSwap_ver1(test_array_unsorted1));
+        assertFalse(isOneSwap_ver1(test_array_unsorted2));
+
+        assertTrue(isOneSwap_ver2(test_array_1));
+        assertTrue(isOneSwap_ver2(test_array_2));
+        assertFalse(isOneSwap_ver2(test_array_3));
+        assertTrue(isOneSwap_ver2(test_array_4));
+        assertFalse(isOneSwap_ver2(test_array_sorted));
+        assertFalse(isOneSwap_ver2(test_array_unsorted1));
+        assertFalse(isOneSwap_ver2(test_array_unsorted2));
     }
 }
