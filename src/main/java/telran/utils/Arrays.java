@@ -1,7 +1,5 @@
 package telran.utils;
 
-import java.util.MissingFormatArgumentException;
-
 public class Arrays
 {
     // JAVA Array is a reference to the first element of the array
