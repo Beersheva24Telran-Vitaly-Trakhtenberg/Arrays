@@ -328,7 +328,7 @@ public class Arrays
     public static <T> void sort(T[] source_array, Comparator<T> comparator)
     {
         int length = source_array.length;
-        boolean flag_sorted = false;
+        boolean flag_sorted;
         do {
             length--;
             flag_sorted = true;
