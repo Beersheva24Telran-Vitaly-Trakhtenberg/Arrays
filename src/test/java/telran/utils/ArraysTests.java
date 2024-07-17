@@ -2,8 +2,6 @@ package telran.utils;
 
 import org.junit.jupiter.api.Test;
 
-import java.util.MissingFormatArgumentException;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 import static telran.utils.Arrays.*;
@@ -111,12 +109,24 @@ public class ArraysTests
         int searched_presented_value_start = 2;
         int searched_presented_value_finish = 26;
         int searched_nonpresented_value = 6;
+        String [] test_strings = {"aa", "cfta", "lmn", "w"};
+        String searched_string = "lmn";
+        String searched_nonpresented_string = "mln";
+        Integer[] test_integers = {10, 20, 30, 40, 50};
+        Integer searched_integer = 50;
+        Integer searched_nonpresented_integer = 60;
 
         assertEquals(7, binarySearch(test_array, searched_presented_value_right));
         assertEquals(2, binarySearch(test_array, searched_presented_value_left));
         assertEquals(0, binarySearch(test_array, searched_presented_value_start));
         assertEquals(8, binarySearch(test_array, searched_presented_value_finish));
         assertEquals(-3, binarySearch(test_array, searched_nonpresented_value));
+
+        assertEquals(2, binarySearch(test_strings, searched_string, new ComparatorASCII()));
+        assertEquals(-4, binarySearch(test_strings, searched_nonpresented_string, new ComparatorASCII()));
+
+        assertEquals(4, binarySearch(test_integers, searched_integer, new ComparatorInteger()));
+        assertEquals(-6, binarySearch(test_integers, searched_nonpresented_integer, new ComparatorInteger()));
     }
 
     @Test
@@ -171,5 +181,20 @@ public class ArraysTests
         assertFalse(isOneSwap_ver2(test_array_sorted));
         assertFalse(isOneSwap_ver2(test_array_unsorted1));
         assertFalse(isOneSwap_ver2(test_array_unsorted2));
+    }
+
+    @Test
+    void sortAnyTypeTest()
+    {
+        // any types, but without primitives
+        String[] strings = {"lmn", "cfta", "w", "aa"};
+        String[] expectedASCII = {"aa", "cfta", "lmn", "w"};
+        String[] expectedLength = {"w", "aa", "lmn", "cfta"};
+
+        sort(strings, new ComparatorASCII());
+        assertArrayEquals(expectedASCII, strings);
+
+        sort(strings, new ComparatorLength());
+        assertArrayEquals(expectedLength, strings);
     }
 }
