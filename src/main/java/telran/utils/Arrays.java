@@ -1,5 +1,7 @@
 package telran.utils;
 
+import java.util.Comparator;
+
 public class Arrays
 {
     // JAVA Array is a reference to the first element of the array
@@ -321,5 +323,57 @@ public class Arrays
             }
         }
         return new_value_index;
+    }
+
+    public static <T> void sort(T[] source_array, Comparator<T> comparator)
+    {
+        int length = source_array.length;
+        boolean flag_sorted = false;
+        do {
+            length--;
+            flag_sorted = true;
+            for (int i = 0; i < length; i++) {
+                if (comparator.compare(source_array[i], source_array[i+1]) > 0) {
+                    swapAnyTypes(source_array, i, i + 1);
+                    flag_sorted = false;
+                }
+            }
+        } while (!flag_sorted);
+    }
+
+    private static <T> void swapAnyTypes(T[] array, int i, int j)
+    {
+        T tmp = array[i];
+        array[i] = array[j];
+        array[j] = tmp;
+    }
+
+    public static <T> int binarySearch(T[] source_sorted_array,T searched_value, Comparator<T> comparator)
+    {
+        int res = -1;
+
+        int left = 0;
+        int right = source_sorted_array.length - 1;
+
+        while (left <= right) {
+            int middle = left + (right - left) / 2;
+
+            if (source_sorted_array[middle] == searched_value) {
+                res = middle;
+                break;
+            }
+
+            if (comparator.compare(source_sorted_array[middle], searched_value) < 0) {
+                left = middle + 1;
+            } else {
+                right = middle - 1;
+            }
+        }
+
+        if (res == -1) {
+            res = -1 * (left < source_sorted_array.length && (comparator.compare(source_sorted_array[left], searched_value) < 0) ? left + 1 : left) - 1;
+        }
+
+        return res;
     }
 }
