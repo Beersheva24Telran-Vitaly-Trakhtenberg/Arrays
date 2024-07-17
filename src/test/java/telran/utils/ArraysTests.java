@@ -103,7 +103,6 @@ public class ArraysTests
     void binarySearchTest()
     {
         int[] test_array = {2, 5, 7, 10, 12, 13, 14, 21, 26};
-        int[] test_unsorted_array = {-15, 12, 0, -3, 17, 23};
         int searched_presented_value_right = 21;
         int searched_presented_value_left = 7;
         int searched_presented_value_start = 2;
