@@ -442,6 +442,18 @@ public class Arrays
         return result;
     }
 
+    public static <T> T[] remove(T[] source_array, int key_removed_item)
+    {
+        T[] result = java.util.Arrays.copyOf(source_array, source_array.length-1);;
+
+        System.arraycopy(source_array, 0, result, 0, key_removed_item);
+        System.arraycopy(source_array, key_removed_item + 1, result, key_removed_item, source_array.length - key_removed_item - 1);
+
+        return result;
+    }
+
+
+
     public static <T> T[] find(T[] array, Predicate<T> predicate)
     {
         T[] result = java.util.Arrays.copyOf(array, 0);
@@ -455,6 +467,8 @@ public class Arrays
 
     public static <T> T[] removeIf(T[] array, Predicate<T> predicate)
     {
-        return array; // TODO
+        return java.util.Arrays.stream(array)
+                .filter(predicate.negate())
+                .toArray(size -> java.util.Arrays.copyOf(array, size));
     }
 }
