@@ -1,6 +1,7 @@
 package telran.utils;
 
 import java.util.Comparator;
+import java.util.function.Predicate;
 
 public class Arrays
 {
@@ -341,6 +342,25 @@ public class Arrays
         } while (!flag_sorted);
     }
 
+    public static <T> void sort(T[] source_array, Comparator<T> comparator, SortStatusChecking sorting_direction)
+    {
+        int length = source_array.length;
+        boolean flag_sorted;
+        do {
+            length--;
+            flag_sorted = true;
+            for (int i = 0; i < length; i++) {
+                boolean condition = (sorting_direction == SortStatusChecking.ASCENDING_UNIQUE || sorting_direction == SortStatusChecking.ASCENDING_NONE_UNIQUE)
+                        ? comparator.compare(source_array[i], source_array[i + 1]) > 0
+                        : comparator.compare(source_array[i], source_array[i + 1]) < 0;
+                if (condition) {
+                    swapAnyTypes(source_array, i, i + 1);
+                    flag_sorted = false;
+                }
+            }
+        } while (!flag_sorted);
+    }
+
     private static <T> void swapAnyTypes(T[] array, int i, int j)
     {
         T tmp = array[i];
@@ -375,5 +395,56 @@ public class Arrays
         }
 
         return res;
+    }
+
+    /*
+    * binarySearchWithoutComparator_ver1
+    * Uses standard method java.util.Arrays.binarySearch
+    */
+    public static <T extends Comparable<? super T>> int binarySearchWithoutComparator_ver1(T[] source_sorted_array, T searched_value)
+    {
+        return java.util.Arrays.binarySearch(source_sorted_array, searched_value);
+    }
+
+    /*
+     * binarySearchWithoutComparator_ver2
+     * Uses recursive call of own private method
+     */
+    public static <T extends Comparable<T>> int binarySearchWithoutComparator_ver2(T[] array, T key)
+    {
+        return binarySearchRecursive_ver2(array, key, 0, array.length - 1);
+    }
+
+    /*
+    * Private additional method (helper for binarySearchWithoutComparator_ver2 uses ternary operands
+     */
+    private static <T extends Comparable<T>> int binarySearchRecursive_ver2(T[] array, T key, int left, int right)
+    {
+        return left > right ? -left - 1 : array[(left + right) / 2].compareTo(key) == 0 ? (left + right) / 2 : array[(left + right) / 2].compareTo(key) > 0 ? binarySearchRecursive_ver2(array, key, left, (left + right) / 2 - 1) : binarySearchRecursive_ver2(array, key, (left + right) / 2 + 1, right);
+    }
+    /* ***************** */
+
+    public static <T> T[] insert(T[] array, int index, T item)
+    {
+        T[] result = java.util.Arrays.copyOf(array, array.length + 1);
+        System.arraycopy(array, index, result, index + 1, array.length - index );
+        result[index] = item;
+        return result;
+    }
+
+    public static <T> T[] find(T[] array, Predicate<T> predicate)
+    {
+        T[] result = java.util.Arrays.copyOf(array, 0);
+        for (int i=0; i < array.length; i++) {
+            if (predicate.test(array[i])) {
+                result = insert(result, result.length, array[i]);
+            }
+        }
+        return result;
+    }
+
+    public static <T> T[] removeIf(T[] array, Predicate<T> predicate)
+    {
+        return array; // TODO
     }
 }
