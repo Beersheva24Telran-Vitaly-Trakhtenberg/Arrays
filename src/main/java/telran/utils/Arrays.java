@@ -422,6 +422,16 @@ public class Arrays
     {
         return left > right ? -left - 1 : array[(left + right) / 2].compareTo(key) == 0 ? (left + right) / 2 : array[(left + right) / 2].compareTo(key) > 0 ? binarySearchRecursive_ver2(array, key, left, (left + right) / 2 - 1) : binarySearchRecursive_ver2(array, key, (left + right) / 2 + 1, right);
     }
+
+    /*
+     * binarySearchWithoutComparator_ver3
+     * Uses standard method Comparator.naturalOrder()
+     */
+    public static <T extends Comparable<? super T>> int binarySearchWithoutComparator_ver3(T[] source_sorted_array, T searched_value)
+    {
+        return binarySearch(source_sorted_array, searched_value, Comparator.naturalOrder());
+    }
+
     /* ***************** */
 
     public static <T> T[] insert(T[] array, int index, T item)
