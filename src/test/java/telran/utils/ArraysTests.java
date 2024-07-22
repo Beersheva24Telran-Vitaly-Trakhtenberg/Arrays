@@ -264,4 +264,20 @@ HomeWork #8
         Integer[] expected = {7, 13, 99};
         assertArrayEquals(expected, find(array, new OddNumbersPredicate()));
     }
+
+    @Test
+    void removeIfTest()
+    {
+        Integer[] array = {1, 2, 3, 4, 5, 6};
+        Integer[] expected = {1, 3, 5};
+        assertArrayEquals(expected, removeIf(array, new IsPositiveEvenPredicate()));
+    }
+
+    @Test
+    void removeTest()
+    {
+        Integer[] array = {1, 2, 3, 4, 5, 6};
+        Integer[] expected = {1, 3, 4, 5, 6};
+        assertArrayEquals(expected, remove(array, 1));
+    }
 }
