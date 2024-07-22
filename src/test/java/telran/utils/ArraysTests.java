@@ -108,6 +108,17 @@ public class ArraysTests
         int searched_presented_value_start = 2;
         int searched_presented_value_finish = 26;
         int searched_nonpresented_value = 6;
+
+        assertEquals(7, binarySearch(test_array, searched_presented_value_right));
+        assertEquals(2, binarySearch(test_array, searched_presented_value_left));
+        assertEquals(0, binarySearch(test_array, searched_presented_value_start));
+        assertEquals(8, binarySearch(test_array, searched_presented_value_finish));
+        assertEquals(-3, binarySearch(test_array, searched_nonpresented_value));
+    }
+
+    @Test
+    void binarySearchTTest()
+    {
         String [] test_strings = {"aa", "cfta", "lmn", "w"};
         String searched_string = "lmn";
         String searched_nonpresented_string = "mln";
@@ -115,17 +126,29 @@ public class ArraysTests
         Integer searched_integer = 50;
         Integer searched_nonpresented_integer = 60;
 
-        assertEquals(7, binarySearch(test_array, searched_presented_value_right));
-        assertEquals(2, binarySearch(test_array, searched_presented_value_left));
-        assertEquals(0, binarySearch(test_array, searched_presented_value_start));
-        assertEquals(8, binarySearch(test_array, searched_presented_value_finish));
-        assertEquals(-3, binarySearch(test_array, searched_nonpresented_value));
-
         assertEquals(2, binarySearch(test_strings, searched_string, new ComparatorASCII()));
         assertEquals(-4, binarySearch(test_strings, searched_nonpresented_string, new ComparatorASCII()));
 
         assertEquals(4, binarySearch(test_integers, searched_integer, new ComparatorInteger()));
         assertEquals(-6, binarySearch(test_integers, searched_nonpresented_integer, new ComparatorInteger()));
+
+        assertEquals(2, binarySearchWithoutComparator_ver1(test_strings, searched_string));
+        assertEquals(-4, binarySearchWithoutComparator_ver1(test_strings, searched_nonpresented_string));
+
+        assertEquals(4, binarySearchWithoutComparator_ver1(test_integers, searched_integer));
+        assertEquals(-6, binarySearchWithoutComparator_ver1(test_integers, searched_nonpresented_integer));
+
+        assertEquals(2, binarySearchWithoutComparator_ver2(test_strings, searched_string));
+        assertEquals(-4, binarySearchWithoutComparator_ver2(test_strings, searched_nonpresented_string));
+
+        assertEquals(4, binarySearchWithoutComparator_ver2(test_integers, searched_integer));
+        assertEquals(-6, binarySearchWithoutComparator_ver2(test_integers, searched_nonpresented_integer));
+
+        assertEquals(2, binarySearchWithoutComparator_ver3(test_strings, searched_string));
+        assertEquals(-4, binarySearchWithoutComparator_ver3(test_strings, searched_nonpresented_string));
+
+        assertEquals(4, binarySearchWithoutComparator_ver3(test_integers, searched_integer));
+        assertEquals(-6, binarySearchWithoutComparator_ver3(test_integers, searched_nonpresented_integer));
     }
 
     @Test
@@ -195,5 +218,50 @@ public class ArraysTests
 
         sort(strings, new ComparatorLength());
         assertArrayEquals(expectedLength, strings);
+
+        sort(strings, new ComparatorASCII(), SortStatusChecking.ASCENDING_UNIQUE);
+        assertArrayEquals(expectedASCII, strings);
+
+        sort(strings, new ComparatorLength(), SortStatusChecking.ASCENDING_NONE_UNIQUE);
+        assertArrayEquals(expectedLength, strings);
+    }
+
+/*
+Lesson #8
+ClassWork #8
+HomeWork #8
+ */
+    @Test
+    void binarySearchWithoutComparator()
+    {
+        String[] strings = {"aa", "cfta", "lmn", "w"};
+        Person prs1 = new Person(1, "Vasya");
+        Person prs2 = new Person(2, "Itay");
+        Person prs3 = new Person(3, "Sara");
+        Person[] persons = {
+            prs1, prs2, prs3
+        };
+        assertEquals(1, java.util.Arrays.binarySearch(strings, "cfta"));
+        assertEquals(0, java.util.Arrays.binarySearch(persons, prs1));
+        assertEquals(-1, java.util.Arrays.binarySearch(persons, new Person()));
+        assertEquals(-1, java.util.Arrays.binarySearch(persons, new Person("Rivka")));
+        assertEquals(-4, java.util.Arrays.binarySearch(persons, new Person(200, "Joe")));
+    }
+
+    @Test
+    void evenOddSorting()
+    {
+        Integer[] array = {7, -8, 10, -100, 13, -10, 99, 0};
+        Integer[] expected = {-100, -10, -8, 0, 10, 99, 13, 7};
+        sort(array, new EvenOddComparator());
+        assertArrayEquals(expected, array);
+    }
+
+    @Test
+    void findTest()
+    {
+        Integer[] array = {7, -8, 10, -100, 13, -10, 99};
+        Integer[] expected = {7, 13, 99};
+        assertArrayEquals(expected, find(array, new OddNumbersPredicate()));
     }
 }
