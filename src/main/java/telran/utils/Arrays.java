@@ -150,57 +150,7 @@ public class Arrays
      * @param source_array
      * @return true if a given array has exactly one swap to get sort
      */
-    public static boolean isOneSwap_ver1(int[] source_array)
-    {
-        boolean res = !isArraySorted(source_array, SortStatusChecking.ASCENDING_UNIQUE) &&
-                !isArraySorted(source_array, SortStatusChecking.DESCENDING_UNIQUE);
-
-        int position1 = -1;
-        int position2 = -1;
-        int i;
-        while (res) {
-            for (i = 0; i < source_array.length - 1; i++) {
-                if (source_array[i]>source_array[i+1]) {
-                    if (position1 == -1) {
-                        position1 = i;
-                        position2 = i + 1;
-                    } else if (source_array[i + 1] < source_array[position1 + 1]) {
-                        position2 = i + 1;
-                    } else {
-                        res = false;
-                        break;
-                    }
-                }
-            }
-
-            if (res && i == source_array.length - 1) {
-                if (position1 != -1 && position2 != -1 && source_array[position2] < source_array[position1]) {
-                    if (position1 == 0) {
-                        if (position2 == source_array.length - 1) {
-                            res = source_array[position1] > source_array[position2 - 1];
-                        } else {
-                            res = source_array[position1] > source_array[position2 - 1] &&
-                                    source_array[position1] < source_array[position2 + 1];
-                        }
-                    } else {
-                        if (position2 == source_array.length - 1) {
-                            res = source_array[position1] > source_array[position2 - 1] &&
-                                    source_array[position2] < source_array[position1 + 1];
-                        } else {
-                            res = source_array[position1] < source_array[position2 + 1] &&
-                                    source_array[position2] > source_array[position1 - 1] &&
-                                    source_array[position2] <= source_array[position1];
-                        }
-                    }
-                }
-                break;
-            }
-        }
-
-        return res;
-    }
-
-    public static boolean isOneSwap_ver2(int[] source_array) {
+    public static boolean isOneSwap(int[] source_array) {
         int n = source_array.length;
         int first = -1, second = -1;
         boolean res = true;
@@ -397,42 +347,10 @@ public class Arrays
         return res;
     }
 
-    /*
-    * binarySearchWithoutComparator_ver1
-    * Uses standard method java.util.Arrays.binarySearch
-    */
-    public static <T extends Comparable<? super T>> int binarySearchWithoutComparator_ver1(T[] source_sorted_array, T searched_value)
-    {
-        return java.util.Arrays.binarySearch(source_sorted_array, searched_value);
-    }
-
-    /*
-     * binarySearchWithoutComparator_ver2
-     * Uses recursive call of own private method
-     */
-    public static <T extends Comparable<T>> int binarySearchWithoutComparator_ver2(T[] array, T key)
-    {
-        return binarySearchRecursive_ver2(array, key, 0, array.length - 1);
-    }
-
-    /*
-    * Private additional method (helper for binarySearchWithoutComparator_ver2 uses ternary operands
-     */
-    private static <T extends Comparable<T>> int binarySearchRecursive_ver2(T[] array, T key, int left, int right)
-    {
-        return left > right ? -left - 1 : array[(left + right) / 2].compareTo(key) == 0 ? (left + right) / 2 : array[(left + right) / 2].compareTo(key) > 0 ? binarySearchRecursive_ver2(array, key, left, (left + right) / 2 - 1) : binarySearchRecursive_ver2(array, key, (left + right) / 2 + 1, right);
-    }
-
-    /*
-     * binarySearchWithoutComparator_ver3
-     * Uses standard method Comparator.naturalOrder()
-     */
-    public static <T extends Comparable<? super T>> int binarySearchWithoutComparator_ver3(T[] source_sorted_array, T searched_value)
+    public static <T extends Comparable<? super T>> int binarySearchWithoutComparator(T[] source_sorted_array, T searched_value)
     {
         return binarySearch(source_sorted_array, searched_value, Comparator.naturalOrder());
     }
-
-    /* ***************** */
 
     public static <T> T[] insert(T[] array, int index, T item)
     {

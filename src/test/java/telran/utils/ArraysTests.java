@@ -131,24 +131,6 @@ public class ArraysTests
 
         assertEquals(4, binarySearch(test_integers, searched_integer, new ComparatorInteger()));
         assertEquals(-6, binarySearch(test_integers, searched_nonpresented_integer, new ComparatorInteger()));
-
-        assertEquals(2, binarySearchWithoutComparator_ver1(test_strings, searched_string));
-        assertEquals(-4, binarySearchWithoutComparator_ver1(test_strings, searched_nonpresented_string));
-
-        assertEquals(4, binarySearchWithoutComparator_ver1(test_integers, searched_integer));
-        assertEquals(-6, binarySearchWithoutComparator_ver1(test_integers, searched_nonpresented_integer));
-
-        assertEquals(2, binarySearchWithoutComparator_ver2(test_strings, searched_string));
-        assertEquals(-4, binarySearchWithoutComparator_ver2(test_strings, searched_nonpresented_string));
-
-        assertEquals(4, binarySearchWithoutComparator_ver2(test_integers, searched_integer));
-        assertEquals(-6, binarySearchWithoutComparator_ver2(test_integers, searched_nonpresented_integer));
-
-        assertEquals(2, binarySearchWithoutComparator_ver3(test_strings, searched_string));
-        assertEquals(-4, binarySearchWithoutComparator_ver3(test_strings, searched_nonpresented_string));
-
-        assertEquals(4, binarySearchWithoutComparator_ver3(test_integers, searched_integer));
-        assertEquals(-6, binarySearchWithoutComparator_ver3(test_integers, searched_nonpresented_integer));
     }
 
     @Test
@@ -186,23 +168,14 @@ public class ArraysTests
         int[] test_array_unsorted1 = {3, 2, 1, 4, 5, 6, 12, 8, 9, 10, 11, 7, 13, 14, 15, 16, 17, 18, 19, 20};
         int[] test_array_unsorted2 = {1, 2, 3, 4, 5, 6, 7, 8, 9, 20, 11, 12, 14, 13, 15, 16, 17, 18, 19, 10};
 
-        assertTrue(isOneSwap_ver1(test_array_1));
-        assertTrue(isOneSwap_ver1(test_array_2));
-        assertFalse(isOneSwap_ver1(test_array_3));
-        assertTrue(isOneSwap_ver1(test_array_4));
-        //assertTrue(isOneSwap_ver1(test_array_5)); //FIXME - this test failed
-        assertFalse(isOneSwap_ver1(test_array_sorted));
-        assertFalse(isOneSwap_ver1(test_array_unsorted1));
-        assertFalse(isOneSwap_ver1(test_array_unsorted2));
-
-        assertTrue(isOneSwap_ver2(test_array_1));
-        assertTrue(isOneSwap_ver2(test_array_2));
-        assertFalse(isOneSwap_ver2(test_array_3));
-        assertTrue(isOneSwap_ver2(test_array_4));
-        assertTrue(isOneSwap_ver2(test_array_5));
-        assertFalse(isOneSwap_ver2(test_array_sorted));
-        assertFalse(isOneSwap_ver2(test_array_unsorted1));
-        assertFalse(isOneSwap_ver2(test_array_unsorted2));
+        assertTrue(isOneSwap(test_array_1));
+        assertTrue(isOneSwap(test_array_2));
+        assertFalse(isOneSwap(test_array_3));
+        assertTrue(isOneSwap(test_array_4));
+        assertTrue(isOneSwap(test_array_5));
+        assertFalse(isOneSwap(test_array_sorted));
+        assertFalse(isOneSwap(test_array_unsorted1));
+        assertFalse(isOneSwap(test_array_unsorted2));
     }
 
     @Test
@@ -232,20 +205,33 @@ ClassWork #8
 HomeWork #8
  */
     @Test
-    void binarySearchWithoutComparator()
+    void binarySearchWithoutComparatorTest()
     {
-        String[] strings = {"aa", "cfta", "lmn", "w"};
+        String[] test_strings = {"aa", "cfta", "lmn", "w"};
+        String searched_string = "cfta";
+        String searched_nonpresented_string = "mln";
+
         Person prs1 = new Person(1, "Vasya");
         Person prs2 = new Person(2, "Itay");
         Person prs3 = new Person(3, "Sara");
         Person[] persons = {
             prs1, prs2, prs3
         };
-        assertEquals(1, java.util.Arrays.binarySearch(strings, "cfta"));
-        assertEquals(0, java.util.Arrays.binarySearch(persons, prs1));
-        assertEquals(-1, java.util.Arrays.binarySearch(persons, new Person()));
-        assertEquals(-1, java.util.Arrays.binarySearch(persons, new Person("Rivka")));
-        assertEquals(-4, java.util.Arrays.binarySearch(persons, new Person(200, "Joe")));
+
+        Integer[] test_integers = {10, 20, 30, 40, 50};
+        Integer searched_integer = 50;
+        Integer searched_nonpresented_integer = 60;
+
+        assertEquals(1, binarySearchWithoutComparator(test_strings, searched_string));
+        assertEquals(-4, binarySearchWithoutComparator(test_strings, searched_nonpresented_string));
+
+        assertEquals(4, binarySearchWithoutComparator(test_integers, searched_integer));
+        assertEquals(-6, binarySearchWithoutComparator(test_integers, searched_nonpresented_integer));
+
+        assertEquals(0, binarySearchWithoutComparator(persons, prs1));
+        assertEquals(-1, binarySearchWithoutComparator(persons, new Person()));
+        assertEquals(-1, binarySearchWithoutComparator(persons, new Person("Rivka")));
+        assertEquals(-4, binarySearchWithoutComparator(persons, new Person(200, "Joe")));
     }
 
     @Test
