@@ -203,7 +203,7 @@ public class ArraysTests
 Lesson #8
 ClassWork #8
 HomeWork #8
- */
+*/
     @Test
     void binarySearchWithoutComparatorTest()
     {
@@ -254,8 +254,9 @@ HomeWork #8
     @Test
     void removeIfTest()
     {
-        Integer[] array = {1, 2, 3, 4, 5, 6};
+        Integer[] array = {1, 2, 3, -3, 4, 5, 6, -8};
         Integer[] expected = {1, 3, 5};
+        Integer[] res = removeIf(array, new IsPositiveEvenPredicate());
         assertArrayEquals(expected, removeIf(array, new IsPositiveEvenPredicate()));
     }
 
@@ -266,4 +267,11 @@ HomeWork #8
         Integer[] expected = {1, 3, 4, 5, 6};
         assertArrayEquals(expected, remove(array, 1));
     }
+
+/*
+Lesson #9
+ClassWork #9
+HomeWork #9
+*/
+
 }
