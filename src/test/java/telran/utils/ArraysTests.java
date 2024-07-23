@@ -286,7 +286,9 @@ HomeWork #9
     @Test
     void matchesRulesTest()
     {
-        char[] chars = {'t', 'e', 's', 't', '2', 'V', 'a', 'r', '.'};
+        char[] chars_all_variants = {'t', 'e', 's', 't', '2', 'V', 'a', 'r', '.'};
+        char[] chars_no_punctuations = {'t', 'e', 's', 't', '2', 'V', 'a', 'r'};
+        char[] chars_no_uppercase = {'t', 'e', 's', 't', '2', 'v', 'a', 'r'};
         String[] rulesMust = {"isLetterOrDigit", "isUpperCase", "isPunctuation"};
         String[] rulesMustNot = {"isWhitespace", "isSpaceChar", "isSpace"};
         CharacterRule[] characterRulesMust;
@@ -310,6 +312,22 @@ HomeWork #9
             );
         }
 
-        assertEquals("", matchesRules(chars, characterRulesMust, characterRulesMustNot));
+        assertEquals("", matchesRules(chars_all_variants, characterRulesMust, characterRulesMustNot));
+        for (CharacterRule rule : characterRulesMust) {
+            rule.setFlag(false);
+        }
+        for (CharacterRule rule : characterRulesMustNot) {
+            rule.setFlag(false);
+        }
+
+        assertEquals("No isPunctuation;", matchesRules(chars_no_punctuations, characterRulesMust, characterRulesMustNot));
+        for (CharacterRule rule : characterRulesMust) {
+            rule.setFlag(false);
+        }
+        for (CharacterRule rule : characterRulesMustNot) {
+            rule.setFlag(false);
+        }
+
+        assertEquals("No isUpperCase;No isPunctuation;", matchesRules(chars_no_uppercase, characterRulesMust, characterRulesMustNot));
     }
 }
