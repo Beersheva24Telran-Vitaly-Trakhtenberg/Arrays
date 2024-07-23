@@ -286,8 +286,8 @@ HomeWork #9
     @Test
     void matchesRulesTest()
     {
-        char[] chars = {'t', 'e', 's', 't', '2', 'V', 'a', 'r'};
-        String[] rulesMust = {"isLetterOrDigit", "isUpperCase"};
+        char[] chars = {'t', 'e', 's', 't', '2', 'V', 'a', 'r', '.'};
+        String[] rulesMust = {"isLetterOrDigit", "isUpperCase", "isPunctuation"};
         String[] rulesMustNot = {"isWhitespace", "isSpaceChar", "isSpace"};
         CharacterRule[] characterRulesMust;
         characterRulesMust = new CharacterRule[rulesMust.length];
