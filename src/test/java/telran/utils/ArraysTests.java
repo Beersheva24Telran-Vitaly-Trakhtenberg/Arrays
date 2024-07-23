@@ -2,6 +2,8 @@ package telran.utils;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.function.Predicate;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 import static telran.utils.Arrays.*;
@@ -267,11 +269,47 @@ HomeWork #8
         Integer[] expected = {1, 3, 4, 5, 6};
         assertArrayEquals(expected, remove(array, 1));
     }
-
 /*
 Lesson #9
 ClassWork #9
 HomeWork #9
 */
+    @Test
+    void testRemoveIf()
+    {
+        Integer[] array = {7, -8, 10, -100, 13, -10, 99};
+        Integer[] expected = {-8, 10, -100, -10};
+        //TODO see github lamda Granovsky
+    }
 
+
+    @Test
+    void matchesRulesTest()
+    {
+        char[] chars = {'t', 'e', 's', 't', '2', 'V', 'a', 'r'};
+        String[] rulesMust = {"isLetterOrDigit", "isUpperCase"};
+        String[] rulesMustNot = {"isWhitespace", "isSpaceChar", "isSpace"};
+        CharacterRule[] characterRulesMust;
+        characterRulesMust = new CharacterRule[rulesMust.length];
+        CharacterRule[] characterRulesMustNot;
+        characterRulesMustNot = new CharacterRule[rulesMustNot.length];
+        int length = rulesMust.length;
+        for (int i=0; i<length; i++) {
+            characterRulesMust[i] = new CharacterRule(
+                    false,
+                    createPredicateMatchesRules(rulesMust[i]),
+                    rulesMust[i]
+            );
+        }
+        length = rulesMustNot.length;
+        for (int i=0; i<length; i++) {
+            characterRulesMustNot[i] = new CharacterRule(
+                    false,
+                    createPredicateMatchesRules(rulesMustNot[i]),
+                    rulesMustNot[i]
+            );
+        }
+
+        assertEquals("", matchesRules(chars, characterRulesMust, characterRulesMustNot));
+    }
 }
