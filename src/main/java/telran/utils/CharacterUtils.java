@@ -2,7 +2,7 @@ package telran.utils;
 
 public class CharacterUtils
 /**
- * Не все стандартные проверки представлены в методах класса символов .is*.
+ * Not all standard checks are presented at Character class .is* methods
  * This class creates custom rules
   */
 {
