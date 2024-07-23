@@ -285,7 +285,7 @@ public class Arrays
             flag_sorted = true;
             for (int i = 0; i < length; i++) {
                 if (comparator.compare(source_array[i], source_array[i+1]) > 0) {
-                    swapAnyTypes(source_array, i, i + 1);
+                    swap(source_array, i, i + 1);
                     flag_sorted = false;
                 }
             }
@@ -304,14 +304,14 @@ public class Arrays
                         ? comparator.compare(source_array[i], source_array[i + 1]) > 0
                         : comparator.compare(source_array[i], source_array[i + 1]) < 0;
                 if (condition) {
-                    swapAnyTypes(source_array, i, i + 1);
+                    swap(source_array, i, i + 1);
                     flag_sorted = false;
                 }
             }
         } while (!flag_sorted);
     }
 
-    private static <T> void swapAnyTypes(T[] array, int i, int j)
+    private static <T> void swap(T[] array, int i, int j)
     {
         T tmp = array[i];
         array[i] = array[j];
@@ -386,5 +386,15 @@ public class Arrays
         return java.util.Arrays.stream(array)
                 .filter(predicate.negate())
                 .toArray(size -> java.util.Arrays.copyOf(array, size));
+
+        //return find(array, predicate.negate());   // Code of Granovsky
     }
+
+/*
+Lesson #9
+ClassWork #9
+HomeWork #9
+*/
+
+
 }
