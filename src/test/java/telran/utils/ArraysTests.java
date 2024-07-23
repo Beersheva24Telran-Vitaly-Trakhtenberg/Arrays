@@ -222,16 +222,16 @@ HomeWork #8
         Integer searched_integer = 50;
         Integer searched_nonpresented_integer = 60;
 
-        assertEquals(1, binarySearchWithoutComparator(test_strings, searched_string));
-        assertEquals(-4, binarySearchWithoutComparator(test_strings, searched_nonpresented_string));
+        assertEquals(1, binarySearch(test_strings, searched_string));
+        assertEquals(-4, binarySearch(test_strings, searched_nonpresented_string));
 
-        assertEquals(4, binarySearchWithoutComparator(test_integers, searched_integer));
-        assertEquals(-6, binarySearchWithoutComparator(test_integers, searched_nonpresented_integer));
+        assertEquals(4, binarySearch(test_integers, searched_integer));
+        assertEquals(-6, binarySearch(test_integers, searched_nonpresented_integer));
 
-        assertEquals(0, binarySearchWithoutComparator(persons, prs1));
-        assertEquals(-1, binarySearchWithoutComparator(persons, new Person()));
-        assertEquals(-1, binarySearchWithoutComparator(persons, new Person("Rivka")));
-        assertEquals(-4, binarySearchWithoutComparator(persons, new Person(200, "Joe")));
+        assertEquals(0, binarySearch(persons, prs1));
+        assertEquals(-1, binarySearch(persons, new Person()));
+        assertEquals(-1, binarySearch(persons, new Person("Rivka")));
+        assertEquals(-4, binarySearch(persons, new Person(200, "Joe")));
     }
 
     @Test

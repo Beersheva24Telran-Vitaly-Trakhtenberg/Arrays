@@ -347,7 +347,7 @@ public class Arrays
         return res;
     }
 
-    public static <T extends Comparable<? super T>> int binarySearchWithoutComparator(T[] source_sorted_array, T searched_value)
+    public static <T extends Comparable<? super T>> int binarySearch(T[] source_sorted_array, T searched_value)
     {
         return binarySearch(source_sorted_array, searched_value, Comparator.naturalOrder());
     }
