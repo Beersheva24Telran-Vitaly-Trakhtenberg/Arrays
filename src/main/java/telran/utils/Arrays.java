@@ -452,8 +452,6 @@ public class Arrays
         return result;
     }
 
-
-
     public static <T> T[] find(T[] array, Predicate<T> predicate)
     {
         T[] result = java.util.Arrays.copyOf(array, 0);
