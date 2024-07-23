@@ -2,6 +2,7 @@ package telran.utils;
 
 import java.util.Comparator;
 import java.util.function.Predicate;
+import java.lang.reflect.Method;
 
 public class Arrays
 {
@@ -396,5 +397,76 @@ ClassWork #9
 HomeWork #9
 */
 
+    /**
+     * HW #9
+     * @param chars - array of char primitives
+     * @param mustBeRules - array of rules that must be True
+     * @param mustNotBeRules - array of rules that must be False
+     * @return empty string is Ok, or error message if not (description is what was wrong)
+     */
+    public static String matchesRules(
+            char[] chars,
+            CharacterRule[] mustBeRules,
+            CharacterRule[] mustNotBeRules
+    )
+    {
+        String message = "";
+
+        for (CharacterRule rule : mustBeRules) {
+            for (char ch : chars) {
+                if (rule.getPredicate().test(ch)) {
+                    rule.setFlag(true);
+                }
+            }
+        }
+
+        for (CharacterRule rule : mustNotBeRules) {
+            for (char ch : chars) {
+                if (rule.getPredicate().test(ch)) {
+                    rule.setFlag(true);
+                }
+            }
+        }
+
+
+        for (CharacterRule rule : mustBeRules) {
+            if (!rule.getFlag()) {
+                message += "No " + rule.getErrorMessage() + ";";
+            }
+        }
+        for (CharacterRule rule : mustNotBeRules) {
+            if (rule.getFlag()) {
+                message += rule.getErrorMessage() + ";";
+            }
+        }
+
+        return message;
+    }
+
+    public static Predicate<Character> createPredicateMatchesRules(String rule)
+    {
+        Predicate<Character> predicate;
+        try {
+            Method method;
+            try {
+                method = Character.class.getMethod(rule, char.class);
+            } catch (NoSuchMethodException e) {
+                method = CharacterUtils.class.getMethod(rule, char.class);
+            }
+
+            Method finalMethod = method;
+            predicate = ch -> {
+                try {
+                    return (boolean) finalMethod.invoke(null, ch);
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
+            };
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+        return predicate;
+    }
 
 }
