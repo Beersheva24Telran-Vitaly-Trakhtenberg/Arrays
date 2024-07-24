@@ -442,11 +442,7 @@ HomeWork #9
             }
         }
         for (CharacterRule not_rule : mustNotBeRules) {
-            boolean is_consists_mustbe = false;
-            for (CharacterRule must_rule : mustBeRules) {
-                is_consists_mustbe = is_consists_mustbe || (not_rule.getErrorMessage() == must_rule.getErrorMessage());
-            }
-            if (not_rule.getFlag() && !is_consists_mustbe) {
+            if (not_rule.getFlag()) {
                 message += not_rule.getErrorMessage() + ";";
             }
         }

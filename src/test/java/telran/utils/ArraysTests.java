@@ -312,11 +312,11 @@ HomeWork #9
             );
         }
 
-        assertEquals("", matchesRules(chars_all_variants, characterRulesMust, characterRulesMustNot));
+        assertEquals("isUpperCase;", matchesRules(chars_all_variants, characterRulesMust, characterRulesMustNot));
         clearRulesHistory(characterRulesMust);
         clearRulesHistory(characterRulesMustNot);
 
-        assertEquals("No isPunctuation;", matchesRules(chars_no_punctuations, characterRulesMust, characterRulesMustNot));
+        assertEquals("No isPunctuation;isUpperCase;", matchesRules(chars_no_punctuations, characterRulesMust, characterRulesMustNot));
         clearRulesHistory(characterRulesMust);
         clearRulesHistory(characterRulesMustNot);
 
