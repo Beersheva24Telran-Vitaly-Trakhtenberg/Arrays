@@ -313,20 +313,12 @@ HomeWork #9
         }
 
         assertEquals("", matchesRules(chars_all_variants, characterRulesMust, characterRulesMustNot));
-        for (CharacterRule rule : characterRulesMust) {
-            rule.setFlag(false);
-        }
-        for (CharacterRule rule : characterRulesMustNot) {
-            rule.setFlag(false);
-        }
+        clearRulesHistory(characterRulesMust);
+        clearRulesHistory(characterRulesMustNot);
 
         assertEquals("No isPunctuation;", matchesRules(chars_no_punctuations, characterRulesMust, characterRulesMustNot));
-        for (CharacterRule rule : characterRulesMust) {
-            rule.setFlag(false);
-        }
-        for (CharacterRule rule : characterRulesMustNot) {
-            rule.setFlag(false);
-        }
+        clearRulesHistory(characterRulesMust);
+        clearRulesHistory(characterRulesMustNot);
 
         assertEquals("No isUpperCase;No isPunctuation;", matchesRules(chars_no_uppercase, characterRulesMust, characterRulesMustNot));
     }
