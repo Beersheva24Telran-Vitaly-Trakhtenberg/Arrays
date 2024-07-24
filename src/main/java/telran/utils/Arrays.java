@@ -1,6 +1,8 @@
 package telran.utils;
 
 import java.util.Comparator;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.function.Predicate;
 import java.lang.reflect.Method;
 
@@ -397,6 +399,12 @@ ClassWork #9
 HomeWork #9
 */
 
+    public static <T> T[] removeDuplicate(T[] array1, T[] array2)
+    {
+        //TODO
+        return null;
+    }
+
     /**
      * HW #9
      * @param chars - array of char primitives
@@ -428,15 +436,18 @@ HomeWork #9
             }
         }
 
-
         for (CharacterRule rule : mustBeRules) {
             if (!rule.getFlag()) {
                 message += "No " + rule.getErrorMessage() + ";";
             }
         }
-        for (CharacterRule rule : mustNotBeRules) {
-            if (rule.getFlag()) {
-                message += rule.getErrorMessage() + ";";
+        for (CharacterRule not_rule : mustNotBeRules) {
+            boolean is_consists_mustbe = false;
+            for (CharacterRule must_rule : mustBeRules) {
+                is_consists_mustbe = is_consists_mustbe || (not_rule.getErrorMessage() == must_rule.getErrorMessage());
+            }
+            if (not_rule.getFlag() && !is_consists_mustbe) {
+                message += not_rule.getErrorMessage() + ";";
             }
         }
 

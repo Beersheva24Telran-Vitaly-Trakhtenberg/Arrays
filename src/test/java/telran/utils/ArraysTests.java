@@ -290,7 +290,7 @@ HomeWork #9
         char[] chars_no_punctuations = {'t', 'e', 's', 't', '2', 'V', 'a', 'r'};
         char[] chars_no_uppercase = {'t', 'e', 's', 't', '2', 'v', 'a', 'r'};
         String[] rulesMust = {"isLetterOrDigit", "isUpperCase", "isPunctuation"};
-        String[] rulesMustNot = {"isWhitespace", "isSpaceChar", "isSpace"};
+        String[] rulesMustNot = {"isWhitespace", "isSpaceChar", "isSpace", "isUpperCase"};
         CharacterRule[] characterRulesMust;
         characterRulesMust = new CharacterRule[rulesMust.length];
         CharacterRule[] characterRulesMustNot;
