@@ -480,4 +480,11 @@ HomeWork #9
         return predicate;
     }
 
+    public static void clearRulesHistory(CharacterRule[] characterRules)
+    {
+        for (CharacterRule rule : characterRules) {
+            rule.setFlag(false);
+        }
+    }
+
 }
